@@ -67,7 +67,7 @@ Tool - Performance/Memory/Profiler
 	
 	Object.__proto__
 	
-	# Prob
+	#7 Problem
 	var arr = [2, 4, 4, 2, 2, 8, 5, 8, 8, 8, 8];
 	var res = []; //[[2, 2, 2], [4, 4], [5], [8, 8, 8, 8, 8]]
 	arr.filter((ele, i, a) => a.indexOf(ele) === i)
@@ -76,6 +76,20 @@ Tool - Performance/Memory/Profiler
 	  res.push(arr.filter((e) => e === ele))
 	});
 	console.log(res);
+	
+	#8 [Inheritance]
+	var Parent = function() {
+	 this.a = 10; 
+	}
+
+	var Child = function() {
+	  Parent.call(this);
+
+	}
+
+	Child.prototype = Object.create(Parent.prototype);
+	var childObj = new Child();
+	console.log(childObj.a);
 	
 # Promise vs Observable
 	a Promise is eager, whereas an Observable is lazy,
