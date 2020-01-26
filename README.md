@@ -67,6 +67,16 @@ Tool - Performance/Memory/Profiler
 	
 	Object.__proto__
 	
+	# Prob
+	var arr = [2, 4, 4, 2, 2, 8, 5, 8, 8, 8, 8];
+	var res = []; //[[2, 2, 2], [4, 4], [5], [8, 8, 8, 8, 8]]
+	arr.filter((ele, i, a) => a.indexOf(ele) === i)
+	    .sort((a, b) => a - b)
+	  .forEach((ele) => {
+	  res.push(arr.filter((e) => e === ele))
+	});
+	console.log(res);
+	
 # Promise vs Observable
 	a Promise is eager, whereas an Observable is lazy,
 	a Promise is always asynchronous, while an Observable can be either synchronous or asynchronous,
