@@ -1,0 +1,104 @@
+#### CSS3 ####
+
+#01 center position
+
+	.parent {
+	  position: relative;
+	  top: 0;
+	  left: 0;
+	  height: 100%;
+	  width: 100%;
+	  background: red;
+	}
+
+	.child {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	}
+	
+	*** With Flex
+
+	.box {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+	
+	.box div {
+	  width: 100px;
+	  height: 100px;
+	}
+	
+
+#02 CSS
+	Specificity : Inline > ID > Class > Pseudo Elememt > Pseudo Class
+
+	
+#03 em vs rem
+	em: parent font
+	rem: base font
+
+	
+#04 @mixin
+
+	@mixin replace-text($image, $x: 50%, $y: 50%) {
+	  text-indent: -99999em;
+	  overflow: hidden;
+	  text-align: left;
+		background: {
+		image: $image;
+		repeat: no-repeat;
+		position: $x $y;
+	  }
+	}
+	.mail-icon {
+	  @include replace-text(url("/images/mail.svg"), 0);
+	}
+
+	From <https://sass-lang.com/documentation/at-rules/mixin> 
+	
+
+#05 BOX Model box-sizing
+
+	• content-box: The width & height of the element only include the content. In other words, the border, padding and margin aren’t part of the width or height. This is the default value.
+	From <https://alligator.io/css/box-sizing-property/> 
+
+	• border-box: The padding and border are included in the width and height.
+	From <https://alligator.io/css/box-sizing-property/> 
+	
+
+
+# Flexbox
+
+	.flex-container {
+	  display: flex;
+	  height: 300px;
+	  justify-content: center; //Horizontal
+	  align-items: center; //vertical
+	}
+
+	From <https://www.w3schools.com/css/css3_flexbox_container.asp> 
+
+	• flex-direction - row, row-reverse, column, column-reverse
+	• flex-wrap - wrap, nowrap,  wrap-reverse,
+	• flex-flow - row wrap
+	• justify-content -[H] center, flex-start, flex-end, space-around, space-between
+	• align-items - [V] center, flex-start, flex-end, stretch, baseline
+	• align-content - center, flex-start, flex-end, space-around, space-between
+
+	From <https://www.w3schools.com/css/css3_flexbox_container.asp> 
+	
+
+# CSS Vendor Prefixes
+
+	.example {
+	  -webkit-animation-name: slidein;
+	  -o-animation-name: slidein;
+	  -ms-animation-name: slidein;
+	  -moz-animation-name: slidein;
+	  animation-name: slidein;
+	}
+
+	From <https://bitsofco.de/css-vendor-prefixes/>

@@ -1,0 +1,54 @@
+#### HTML5 ####
+
+#01. What is the new Structural Elements in HTML5?
+
+	<header> - Used to define header for a document or a section
+	<nav> - Used to define container for navigation links
+	<section> - Used to define a section inside a document
+	<article> - Used to tag an independent self-contained article
+	<aside> - Defines the content separately (just like a sidebar)
+	<footer> - Used for tagging a footer inside a document or a section
+	<details> - Usd to define any additional details
+	<summary> - Used to define a heading inside the <details> element
+
+	
+2. What are the different types of storage in html5? Explain
+
+	In HTML5, data can be stored in 2 ways – session storage and local storage.
+	1. Session Storage: The data or details from the current browsing session are stored. Once the browser gets closer by the user, the storage data gets removed.
+	2. Local Storage: The da ta does not get cleared automatically when the user closes the browser.
+
+
+3. What is the purpose of <! Doctype html>?
+
+	The in HTML5 refers to indicating to the web browser about the version of HTML in which the page is created. Neither there is an end tag is not is it case sensitive.
+	In HTML5, declaration should be the first thing before HTML tag. This is because of all previous version before HTML5 followed Standard Generalized Markup Language (SGML). Because HTML5 does not follow SGML, it does not require references to DTD (Document Type Definition).
+
+	From <https://www.bestinterviewquestion.com/html5-interview-questions>
+	
+	
+4. What is Meta tags? Why it is used?
+
+	HTML5 has introduced a way to let designers take charge of the web page area that is visible to the users through tags. The tag tells information related to an HTML document. Some of the examples are Link, Style, and Title. With meta tag, we can add meta ketwords, meta description and meta title that helps for SEO Purposes.
+
+	From <https://www.bestinterviewquestion.com/html5-interview-questions> 
+	
+5. What is html5 new input type?
+
+	HTML5 has introduced new input types for forms. Designers can build interactive and user-friendly web forms by using these input types. The new input types also provide improved data validation, better color picker controls, and enhanced input control.
+	The new input types are:
+	• Time
+	• Date
+	• Datetime
+	• Datetime-local
+	• Week
+	• Month
+	• Email
+	• Color
+	• Number
+	• Range
+	• Search
+	• Telephone
+	• URL
+
+	From <https://www.bestinterviewquestion.com/html5-interview-questions> 

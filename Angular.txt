@@ -1,0 +1,295 @@
+#### Angular ####
+
+######################  SHOWING LOADER ##########################
+
+	<div class="lessons-list" *ngIf="lessons else loading">
+	  ... 
+	</div>
+	<ng-template [ngIf]="lessons" [ngIfElse]="loading">
+	   <div class="lessons-list">
+		 ... 
+	   </div>
+	</ng-templ	ate>
+	**********************************
+	<ng-template #loading>
+		<div>Loading...</div>
+	</ng-template>
+
+
+
+# RxJS
+
+	const mySubject = new Rx.Subject(); //subscriptions that arrive late are missing always gives latest data
+	mySub2 = mySubject.subscribe(x => console.log(x.toUpperCase()));
+
+	# AS observable
+	const mySubject = new Rx.Subject();
+	const myObs = mySubject.asObservable(); // convert subject to observable
+	
+	# Reply subject
+	const mySubject = new Rx.ReplaySubject(2); // holds the buffer
+	
+	# Behaviour subject
+	Behavior subjects are similar to replay subjects, but will re-emit only the last emitted value, or a default value if no value has been previously emitted:
+	const mySubject = new Rx.BehaviorSubject('Hey now!');
+
+	mySubject.subscribe(x => {
+	  console.log('From 1st sub:', x);
+	});
+	
+	
+# Lifecycle
+
+	class JokeComponent {
+	  @Input('joke') data: Joke;
+	constructor() {
+		console.log(`new - data is ${this.data}`);
+	  }
+	ngOnChanges() {
+		console.log(`ngOnChanges - data is ${this.data}`);
+	  }
+	ngOnInit() {
+		console.log(`ngOnInit  - data is ${this.data}`);
+	  }
+	ngDoCheck() {
+		console.log("ngDoCheck")
+	  }
+	ngAfterContentInit() {
+		console.log("ngAfterContentInit");
+	  }
+	ngAfterContentChecked() {
+		console.log("ngAfterContentChecked");
+	  }
+	ngAfterViewInit() {
+		console.log("ngAfterViewInit");
+	  }
+	ngAfterViewChecked() {
+		console.log("ngAfterViewChecked");
+	  }
+	ngOnDestroy() {
+		console.log("ngOnDestroy");
+	  }
+	}
+
+	From <https://codecraft.tv/courses/angular/components/lifecycle-hooks/>
+
+
+
+# Transform(Pipe)
+
+	import { Pipe, PipeTransform } from '@angular/core';
+	@Pipe(
+	  {
+		name: 'uselessPipe',
+		pure: true
+	  }
+	)
+	export class uselessPipe implements PipeTransform {
+	  transform(value: string, before: string, after: string): string {
+		let newStr = `${before} ${value} ${after}`;
+		return newStr;
+	  }
+	}
+	{{ user.name | uselessPipe:"Mr.":"the great" }}
+
+	# Pure vs Impure [Shared Common State | Different Instance]
+	# async pipe[Impure] [ Automatically add .then() or .subscribe()]
+
+
+	# Pure : Pure change to the input value is detected / Angular change the property or Param
+	# Impure: Every change detection cycle - Whether the value got change or not
+	
+
+	
+# Viewencaptutation
+
+	import { Component, ViewEncapsulation } from '@angular/core';
+	@Component({
+		selector: 'app-root',
+		templateUrl: './app.component.html',
+		styleUrls: ['./app.component.css'],
+		encapsulation: ViewEncapsulation.None/ViewEncapsulation.Native[Shadow Dom #shadow-root]/Emulated[Default _ngcontent-c0]
+	})
+	
+
+# Change Detection
+
+	String and boolian - Immutable
+	OnPush - Compare the references of the object
+	ChangeDetectorRef - this.cd.markForCheck(); //Checks mutatable object from parent thru @input
+						this.cd.detached(); // Never look for changes
+						this.cd.detectChanges(); //
+						this.cd.reattached();
+	
+	chngeDetectionStrategy.OnPush
+	changeDetectorRef
+	
+	@Component({
+	  selector: 'tooltip',
+	  template: `
+	    <h1>{{config.position}}</h1>
+	    {{runChangeDetection}}
+	  `,
+	  changeDetection: ChangeDetectionStrategy.OnPush
+	})
+	
+	detectChanges() // Child -> Detect changes if there is mutation in parent model
+	ApplicationRef.tick() //application
+	markForCheck() // Detect changes 
+
+
+# HttpInterceptor
+
+	@Injectable()
+	export class RequestLogInterceptor implements HttpInterceptor {
+	  intercept(
+		request: HttpRequest<any>, next: HttpHandler
+	  ) : Observable<HttpEvent<any>> {
+		console.log(request.url);
+		return next.handle(request);
+	  }
+	}
+	
+	
+	
+# Reactive form
+	import { AbstractControl } from '@angular/forms'; //for custom validator
+
+	import { ReactiveFormsModule } from '@angular/forms'; //ngModule
+	import { FormBuilder, Validators } from "@angular/forms"; //component
+
+	export class AppComponent {
+	   City: any = ['Florida', 'South Dakota', 'Tennessee', 'Michigan']
+	  constructor(public fb: FormBuilder) { }
+
+	  /*########### Form ###########*/
+	  
+
+	  registrationForm = this.fb.group({
+		cityName: ['']
+	  })
+		
+	  changeCity(e) {
+		this.cityName.setValue(e.target.value, {
+		  onlySelf: true
+		})
+	  }
+	  onSubmit() {
+		alert(JSON.stringify(this.registrationForm.value))
+	  }
+
+	}
+
+	<!-- Form starts -->
+	<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+	   <select class="custom-select">
+		  <option value="" disabled>Choose your city</option>
+		  <option>New York</option>
+	   </select>
+	   
+	   <select class="custom-select" (change)="changeCity($event)" formControlName="cityName">
+		   <option value="" disabled>Choose your city</option>
+		   <option *ngFor="let city of City" [ngValue]="city">{{city}}</option>
+		</select>
+
+	   <button type="submit">Submit</button>
+	</form><!-- Form ends -->
+
+	################################
+	<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+	  <input formControlName="name" placeholder="Your name">
+	  <input formControlName="email" placeholder="Your email">
+	  <input formControlName="message" placeholder="Your message">
+	  <button type="submit">Send</button>
+	</form>
+	export class AppComponent implements OnInit {
+	  myForm: FormGroup;
+
+	  constructor(private fb: FormBuilder) {}
+	  ngOnInit() {
+		this.myForm = new FormGroup({
+		  name: new FormControl('Benedict'),
+		  email: new FormControl(''),
+		  message: new FormControl('')
+		});
+	  }
+	  OR,
+	  ngOnInit() {
+	  this.myForm = this.fb.group({
+		name: ['Benedict', Validators.required],
+		email: ['', [Validators.required, Validators.pattern('[a-z0-9.@]*')]],
+		message: ['', [Validators.required, Validators.minLength(15)]]
+	  });
+	  }
+	}
+
+	
+	
+# MergeMap and ForkJoin : Performing Multiple HTTP request
+
+
+	mergeMap/flatMap: to address callback hell
+	ngOnInit(){
+		this.homeworld =this.http
+		.get('/api/people/1')
+		.pipe(mergeMap(character =>this.http.get(character.homeworld)));
+	}
+	
+	From <https://coryrylan.com/blog/angular-multiple-http-requests-with-rxjs> 
+	
+	
+	Forkjoin: Promise.all[]
+
+	‘forkJoin’ is the easiest way, when you need to wait for multiple HTTP requests to be resolved
+
+	From <https://medium.com/@swarnakishore/performing-multiple-http-requests-in-angular-4-5-with-forkjoin-74f3ac166d61> 
+
+
+	ngOnInit(){
+			letcharacter =this.http.get('https://swapi.co/api/people/1');
+			letcharacterHomeworld =this.http.get('http://swapi.co/api/planets/1');
+			
+			forkJoin([character,characterHomeworld]).subscribe(results =>{
+			// results[0] is our character
+			// results[1] is our character homeworld
+			results[0].homeworld = results[1];
+			this.loadedCharacter = results[0];
+		});
+	}
+	
+	From <https://coryrylan.com/blog/angular-multiple-http-requests-with-rxjs>
+	
+
+# *ngFor
+
+	<li *ngFor="let item of items">{{ item }}</li>
+	
+
+# Unit Testing
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(LogGridComponent);
+    component = fixture.componentInstance;
+    component.launchData = mockLaunchParameter;
+    gridMetaService = TestBed.inject(GridMetaService);
+    fixture.detectChanges();
+  });
+
+
+
+  it('should get search data with selected alaert', (done) => {
+    const loggerService: LogGridService = TestBed.inject(LogGridService);
+    component.alertData = MOCK_SELECTED_ALERT_DATA;
+    const spy = spyOn(loggerService, 'getAllLogInfo').and.returnValue(of({ records: [] }));
+    component.getInitialLogData();
+
+    spy.calls.mostRecent().returnValue.subscribe(() => {
+      fixture.detectChanges();
+      expect(component.getInitialLogData).toBeDefined();
+      done();
+    });
+  });
+
+
+

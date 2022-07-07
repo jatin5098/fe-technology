@@ -1,0 +1,65 @@
+#### REACT ####
+
+# Immutable
+	1. Predictable
+	2. Change tracking
+	3. Easiness of implementing reactive interface
+	4. Change history (Redo/Undo)
+	5. having single source of truth
+	6. structural sharing
+
+
+# React JS
+	Mount:
+		constructor() -> 
+		static getDerivedStateFromProps(props, state) -> 
+		render() -> 
+		componentDidMount()
+	Update: 
+		getDerivedStateFromProps(props, state) -> 
+		shouldComponentUpdate() -> 
+		render() ->  
+		getSnapshotBeforeUpdate(prevProps, prevState) -> 
+		componentDidUpdate(prevProps, prevState, snapshot)
+		
+		setState(), forceUpdate()
+	Unmount:
+		 componentWillUnmount()
+	
+	ErrorHandling: static getDerivedStateFromError(err), componentDidCatch(err, errInfo)
+
+
+# React HOOKS
+	1. React.createContext / React.useContext
+	2. React.useState
+	3. React.useEffects
+	
+#React Components
+	1. Functional Component: Presentational, dumb, stateless
+	2. Class-based component: containers, smart, state-ful
+	
+# Reconsilation
+	Virtual DOM ->  Real DOM
+
+
+# Redux
+	1. Component
+	2. Action (Obj) & Action creator
+	3. Reducers (Pure functions)
+	4. Central State
+	5. Subscription
+
+# What is HOC ?
+
+# Error Boundary
+
+# Controlled vs uncontrolled component ?
+
+# How to connect a react component to REDUX?
+	1. Connect()
+	2. mapStateToProps(state)
+	3. mapDispatchToProps(dispatch)
+	
+# Redux-Thunk
+
+# Zest, Enzyme, RTL (React testing library)
