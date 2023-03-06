@@ -9,7 +9,7 @@
 	   <div class="lessons-list">
 		 ... 
 	   </div>
-	</ng-templ	ate>
+	</ng-template>
 	**********************************
 	<ng-template #loading>
 		<div>Loading...</div>
@@ -116,10 +116,10 @@
 
 	String and boolian - Immutable
 	OnPush - Compare the references of the object
-	ChangeDetectorRef - this.cd.markForCheck(); //Checks mutatable object from parent thru @input
-						this.cd.detached(); // Never look for changes
-						this.cd.detectChanges(); //
-						this.cd.reattached();
+	ChangeDetectorRef - this.cd.markForCheck(); // Checks mutatable object from parent thru @input			    
+			    this.cd.detectChanges(); // Child -> Detect changes if there is mutation in parent model
+			    this.cd.detached(); // Never look for changes
+			    this.cd.reattached(); // Re-attach Change detector
 	
 	chngeDetectionStrategy.OnPush
 	changeDetectorRef
@@ -134,7 +134,7 @@
 	})
 	
 	detectChanges() // Child -> Detect changes if there is mutation in parent model
-	ApplicationRef.tick() //application
+	ApplicationRef.tick() // Application
 	markForCheck() // Detect changes 
 
 
@@ -246,11 +246,11 @@
 	From <https://medium.com/@swarnakishore/performing-multiple-http-requests-in-angular-4-5-with-forkjoin-74f3ac166d61> 
 
 
-	ngOnInit(){
-			letcharacter =this.http.get('https://swapi.co/api/people/1');
-			letcharacterHomeworld =this.http.get('http://swapi.co/api/planets/1');
-			
-			forkJoin([character,characterHomeworld]).subscribe(results =>{
+	ngOnInit() {
+		letcharacter = this.http.get('https://swapi.co/api/people/1');
+		letcharacterHomeworld = this.http.get('http://swapi.co/api/planets/1');
+
+		forkJoin([character,characterHomeworld]).subscribe(results =>{
 			// results[0] is our character
 			// results[1] is our character homeworld
 			results[0].homeworld = results[1];
